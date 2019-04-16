@@ -7,10 +7,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule, MatIconModule, MatToolbarModule, MatButtonModule, MatFormFieldModule,MatAutocompleteModule, MatInputModule, MatSidenavModule, MatExpansionModule, MatTabsModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
-import { SrHomeComponent } from './sr-home/sr-home.component';
-import { SrAvailableServicesComponent } from './sr-available-services/sr-available-services.component';
-import { SrSelectedServicesComponent } from './sr-selected-services/sr-selected-services.component';
-import { LoginComponent } from './login/login.component';
+import { SrHomeComponent } from './Components/sr-home/sr-home.component';
+import { SrAvailableServicesComponent } from './Components/sr-available-services/sr-available-services.component';
+import { SrSelectedServicesComponent } from './Components/sr-selected-services/sr-selected-services.component';
+import { LoginComponent } from './Components/login/login.component';
 
 @NgModule({
   declarations: [
