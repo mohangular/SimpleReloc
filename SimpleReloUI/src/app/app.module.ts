@@ -10,13 +10,15 @@ import { AppComponent } from './app.component';
 import { SrHomeComponent } from './sr-home/sr-home.component';
 import { SrAvailableServicesComponent } from './sr-available-services/sr-available-services.component';
 import { SrSelectedServicesComponent } from './sr-selected-services/sr-selected-services.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SrHomeComponent,
     SrAvailableServicesComponent,
-    SrSelectedServicesComponent
+    SrSelectedServicesComponent,
+    LoginComponent
   ],
   imports: [
     AppRoutingModule,
