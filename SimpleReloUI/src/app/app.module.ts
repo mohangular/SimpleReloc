@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatCardModule, MatIconModule, MatToolbarModule, MatButtonModule, MatFormFieldModule,MatAutocompleteModule, MatInputModule } from '@angular/material';
+import { MatCardModule, MatIconModule, MatToolbarModule, MatButtonModule, MatFormFieldModule,MatAutocompleteModule, MatInputModule, MatSidenavModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { SrHomeComponent } from './sr-home/sr-home.component';
@@ -29,7 +29,8 @@ import { SrSelectedServicesComponent } from './sr-selected-services/sr-selected-
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatSidenavModule
   ],
   providers: [],
   bootstrap: [AppComponent]
