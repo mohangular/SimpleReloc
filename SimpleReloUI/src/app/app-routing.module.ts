@@ -5,12 +5,17 @@ import { SrHomeComponent } from './Components/sr-home/sr-home.component';
 
 const routes: Routes = [
   {
-    path:'',
+    path:'login',
     component: LoginComponent
   },
   {
     path:'home',
     component: SrHomeComponent
+  },
+  {
+    path:'',
+    redirectTo:'login',
+    pathMatch:'full'
   }
 
 ];
