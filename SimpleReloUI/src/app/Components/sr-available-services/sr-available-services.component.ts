@@ -13,10 +13,10 @@ export class SrAvailableServicesComponent implements OnInit {
 
   constructor(public dialog: MatDialog) { }
 
-  openDialog(): void {
+  openDialog(service): void {
     const dialogRef = this.dialog.open(SrServicesPopupComponent, {
       width: '250px',
-      data: {name: this.serviceList[0].name, desc: this.serviceList[0].desc}
+      data: {name: service.name, desc: service.desc}
     });
 
     dialogRef.afterClosed().subscribe(result => {

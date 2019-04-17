@@ -13,7 +13,7 @@ import {map, startWith} from 'rxjs/operators';
 })
 export class SrHomeComponent implements OnInit {
   myControl = new FormControl();
-  options: string[] = ['One', 'Two', 'Three'];
+  options: string[] = ['USA', 'India', 'Australia','England'];
   filteredOptions: Observable<string[]>;
 
   ngOnInit() {
