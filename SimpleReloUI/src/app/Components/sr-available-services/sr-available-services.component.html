@@ -1,11 +1,9 @@
 <!-- <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="30px" fxLayoutAlign="left">   -->
 <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="30px" fxLayoutAlign="left" class="giphy-container mt-1">
     
-    <mat-card *ngFor="let service of serviceList" fxFlex>
-      <mat-card-header>
-        <mat-card-title>{{service.name}}</mat-card-title>
-      </mat-card-header>
+    <mat-card *ngFor="let service of serviceList" fxFlex="1 0 21%">
       <img mat-card-image [src]="service.imgPath" alt="Photo of a Shiba Inu">
+      <mat-card-title>{{service.name}}</mat-card-title>
       <mat-card-content>
         <p>
           {{service.desc}}
@@ -13,7 +11,7 @@
       </mat-card-content>
       <mat-card-actions>
         <button mat-raised-button color="primary" (click)="openDialog()">Select</button>
-        <a mat-raised-button color="warn">{{service.price}}</a>
+        <a mat-raised-button color="warn" class="pull-right">{{service.price}}</a>
       </mat-card-actions>
     </mat-card>
    

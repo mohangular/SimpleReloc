@@ -1,9 +1,9 @@
 <mat-accordion>
     <mat-expansion-panel *ngFor="let srvc of selectedSrvcList">
       <mat-expansion-panel-header>
-        <mat-panel-title>
-          {{srvc.srvcName}}
-        </mat-panel-title>
+          <mat-panel-title>
+            {{srvc.srvcName}}
+          </mat-panel-title>
         <mat-panel-description>
           {{srvc.srvcDesc}}
         </mat-panel-description>        
@@ -12,5 +12,18 @@
       <p>Total Rate : {{srvc.totalRate}}</p>
       <button mat-raised-button color="primary" class="pull-right" (click)="deleteSrvc(srvc.srvcId)">Remove</button>
     </mat-expansion-panel>
+    
+    <!-- <mat-expansion-panel (opened)="panelOpenState = true"
+                         (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+         Service Two
+        </mat-panel-title>
+        <mat-panel-description>
+          Currently I am {{panelOpenState ? 'open' : 'closed'}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <p>I'm visible because I am open</p>
+    </mat-expansion-panel> -->
   </mat-accordion>
   
