@@ -1,10 +1,9 @@
-<h1 mat-dialog-title>Hi {{data.name}}</h1>
+<h1 mat-dialog-title> {{data.name}}</h1>
 <div mat-dialog-content>
   <p>{{data.desc}}</p>
 </div>
-<p>No of Persons availed for services</p>
   <mat-form-field>
-    <input matInput [(ngModel)]="data.srvcNoOfPerson">
+    <input matInput placeholder="No of Persons availed for services" [(ngModel)]="data.srvcNoOfPerson" type="number">
   </mat-form-field>
   <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">No Thanks</button>

@@ -15,7 +15,7 @@ export class SrAvailableServicesComponent implements OnInit {
 
   openDialog(service): void {
     const dialogRef = this.dialog.open(SrServicesPopupComponent, {
-      width: '250px',
+      width: '500px',
       data: {name: service.name, desc: service.desc}
     });
 
@@ -26,10 +26,10 @@ export class SrAvailableServicesComponent implements OnInit {
 
   ngOnInit() {
     this.serviceList = [
-      { name:'Shiba Inu', desc:'The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally bred for hunting.', imgPath:'assets/images/homefinding.jpg', price:'$200'},
-      { name:'Shiba Inu', desc:'The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally bred for hunting.', imgPath:'assets/images/homefinding.jpg', price:'$400'},
-      { name:'Shiba Inu', desc:'The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally bred for hunting.', imgPath:'assets/images/homefinding.jpg', price:'$600'},
-      { name:'Shiba Inu', desc:'The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally bred for hunting.', imgPath:'assets/images/homefinding.jpg', price:'$800'}
+      { name:'HomeFinding', desc:'The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally bred for hunting.', imgPath:'assets/images/homefinding.jpg', price:'$200'},
+      { name:'HomeFinding', desc:'The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally bred for hunting.', imgPath:'assets/images/homefinding.jpg', price:'$400'},
+      { name:'HomeFinding', desc:'The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally bred for hunting.', imgPath:'assets/images/homefinding.jpg', price:'$600'},
+      { name:'HomeFinding', desc:'The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally bred for hunting.', imgPath:'assets/images/homefinding.jpg', price:'$800'}
     ];
   }
 
