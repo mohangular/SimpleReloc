@@ -5,7 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatCardModule, MatIconModule, MatToolbarModule, MatButtonModule, MatFormFieldModule,MatAutocompleteModule, MatInputModule, MatSidenavModule, MatExpansionModule, MatTabsModule } from '@angular/material';
+import { MatCardModule, MatIconModule, MatToolbarModule, MatButtonModule, MatFormFieldModule,MatAutocompleteModule, MatInputModule, MatSidenavModule, MatExpansionModule, MatTabsModule, MatProgressSpinnerModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { SrHomeComponent } from './Components/sr-home/sr-home.component';
@@ -36,6 +36,7 @@ import { LoginComponent } from './Components/login/login.component';
     MatSidenavModule,
     MatTabsModule,
     MatExpansionModule,
+    MatProgressSpinnerModule,
     FormsModule,
     ReactiveFormsModule
   ],
