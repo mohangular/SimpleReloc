@@ -19,8 +19,7 @@ export class SrAvailableServicesComponent implements OnInit {
       data: {name: this.serviceList[0].name, desc: this.serviceList[0].desc}
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+    dialogRef.afterClosed().subscribe(result => {      
       this.result = result;
     });
   }
