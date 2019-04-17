@@ -11,7 +11,7 @@ import { SrHomeComponent } from './Components/sr-home/sr-home.component';
 import { SrAvailableServicesComponent } from './Components/sr-available-services/sr-available-services.component';
 import { SrSelectedServicesComponent } from './Components/sr-selected-services/sr-selected-services.component';
 import { LoginComponent } from './Components/login/login.component';
-import { SrServicesPopupComponent } from './sr-services-popup/sr-services-popup.component';
+import { SrServicesPopupComponent } from './Components/sr-services-popup/sr-services-popup.component';
 
 @NgModule({
   declarations: [

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { SrServicesPopupComponent } from './../../sr-services-popup/sr-services-popup.component';
+import { SrServicesPopupComponent } from './../sr-services-popup/sr-services-popup.component';
 
 @Component({
   selector: 'app-sr-available-services',
@@ -19,8 +19,7 @@ export class SrAvailableServicesComponent implements OnInit {
       data: {name: service.name, desc: service.desc}
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+    dialogRef.afterClosed().subscribe(result => {      
       this.result = result;
     });
   }
