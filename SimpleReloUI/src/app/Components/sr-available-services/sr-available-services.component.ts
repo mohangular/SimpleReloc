@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { SrServicesPopupComponent } from './../../sr-services-popup/sr-services-popup.component';
+import { SrServicesPopupComponent } from './../sr-services-popup/sr-services-popup.component';
 
 @Component({
   selector: 'app-sr-available-services',

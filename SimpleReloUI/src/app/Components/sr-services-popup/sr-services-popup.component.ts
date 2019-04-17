@@ -22,6 +22,5 @@ export class SrServicesPopupComponent implements OnInit {
 }
 
 export interface DialogData {
-  animal: string;
-  name: string;
+  srvcNoOfPerson: number;  
 }

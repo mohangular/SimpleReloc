@@ -2,7 +2,11 @@
 <div mat-dialog-content>
   <p>{{data.desc}}</p>
 </div>
-<div mat-dialog-actions>
+<p>No of Persons availed for services</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.srvcNoOfPerson">
+  </mat-form-field>
+  <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">No Thanks</button>
   <button mat-button [mat-dialog-close]="data.result" cdkFocusInitial>Ok</button>
 </div>
