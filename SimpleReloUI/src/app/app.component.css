@@ -34,7 +34,14 @@
   mat-toolbar{
     border-radius: 3px;
   }
-  
+  .pos-fixed{
+    position:fixed;
+    z-index:1000;
+    border-radius: 0
+  }
+  main{
+    margin-top:58px;
+  }
   @media(max-width: 959px){
     mat-toolbar{
         border-radius: 0px;

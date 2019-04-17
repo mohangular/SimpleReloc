@@ -4,7 +4,8 @@
           <!--this is a place for us to add side-nav code-->
         </mat-sidenav>
         <mat-sidenav-content>
-            <mat-toolbar color="primary">
+            <header>
+                <mat-toolbar color="primary" class="pos-fixed">
                 <div fxHide.gt-xs>
                     <button mat-icon-button (click)="onToggleSidenav()">
                         <mat-icon>menu</mat-icon>
@@ -24,6 +25,7 @@
                     </ul>
                 </div>
               </mat-toolbar>
+            </header>
           <main>
             <router-outlet></router-outlet>
           </main>
