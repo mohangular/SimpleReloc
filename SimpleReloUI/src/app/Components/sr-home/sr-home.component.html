@@ -2,7 +2,7 @@
   <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="30px" fxLayoutAlign="center">  
     <div fxFlex="50%">  
       <mat-form-field class="example-full-width">
-      <input type="text" placeholder="Departure" aria-label="Number" matInput formControl="myControl" [matAutocomplete]="auto">
+      <input type="text" placeholder="Departure" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
           {{option}}
@@ -12,7 +12,7 @@
   </div>
   <div fxFlex="50%">  
       <mat-form-field class="example-full-width">
-        <input type="text" placeholder="Destination" aria-label="Number" matInput formControl="myControl" [matAutocomplete]="auto">
+        <input type="text" placeholder="Destination" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
         <mat-autocomplete #auto="matAutocomplete">
           <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
             {{option}}
