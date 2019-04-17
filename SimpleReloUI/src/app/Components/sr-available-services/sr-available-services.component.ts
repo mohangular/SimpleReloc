@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { SrServicesPopupComponent } from './../../sr-services-popup/sr-services-popup.component';
 
 @Component({
   selector: 'app-sr-available-services',
@@ -7,8 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SrAvailableServicesComponent implements OnInit {
   serviceList: any[];
+  result:any[];
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(SrServicesPopupComponent, {
+      width: '250px',
+      data: {name: this.serviceList[0].name, desc: this.serviceList[0].desc}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.result = result;
+    });
+  }
 
   ngOnInit() {
     this.serviceList = [

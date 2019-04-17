@@ -4,7 +4,7 @@
       <mat-card-header>
         <mat-card-title>{{service.name}}</mat-card-title>
       </mat-card-header>
-      <img mat-card-image [src]="service.imgPath" alt="Photo of a Shiba Inu">
+      <img mat-card-image [src]="service.imgPath" alt="Photo of a Shiba Inu" (click)="openDialog()">
       <mat-card-content>
         <p>
           {{service.desc}}

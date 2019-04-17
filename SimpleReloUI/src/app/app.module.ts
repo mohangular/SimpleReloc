@@ -5,13 +5,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatCardModule, MatIconModule, MatToolbarModule, MatButtonModule, MatFormFieldModule,MatAutocompleteModule, MatInputModule, MatSidenavModule, MatExpansionModule, MatTabsModule, MatProgressSpinnerModule } from '@angular/material';
-
+import { MatCardModule, MatIconModule, MatToolbarModule, MatButtonModule, MatFormFieldModule,MatAutocompleteModule, MatInputModule, MatSidenavModule, MatExpansionModule, MatTabsModule, MatProgressSpinnerModule, MatDialogModule } from '@angular/material';
 import { AppComponent } from './app.component';
 import { SrHomeComponent } from './Components/sr-home/sr-home.component';
 import { SrAvailableServicesComponent } from './Components/sr-available-services/sr-available-services.component';
 import { SrSelectedServicesComponent } from './Components/sr-selected-services/sr-selected-services.component';
 import { LoginComponent } from './Components/login/login.component';
+import { SrServicesPopupComponent } from './sr-services-popup/sr-services-popup.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,8 @@ import { LoginComponent } from './Components/login/login.component';
     SrHomeComponent,
     SrAvailableServicesComponent,
     SrSelectedServicesComponent,
-    LoginComponent
+    LoginComponent,
+    SrServicesPopupComponent
   ],
   imports: [
     AppRoutingModule,
@@ -37,10 +38,14 @@ import { LoginComponent } from './Components/login/login.component';
     MatTabsModule,
     MatExpansionModule,
     MatProgressSpinnerModule,
+    MatDialogModule,
     FormsModule,
     ReactiveFormsModule
   ],
   providers: [],
+  entryComponents: [
+    SrServicesPopupComponent
+],
   bootstrap: [AppComponent]
 })
 export class AppModule {
