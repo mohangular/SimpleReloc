@@ -10,8 +10,7 @@ export class SrSelectedServicesComponent implements OnInit {
   selectedSrvcList: any [];
   constructor() { }
 
-  deleteSrvc(srvcId:number){
-    debugger;
+  deleteSrvc(srvcId:number){    
     const index = this.selectedSrvcList.findIndex(x => x.srvcId === srvcId);
     if (index !== -1) {
         this.selectedSrvcList.splice(index, 1);
