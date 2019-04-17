@@ -40,7 +40,7 @@
     border-radius: 0
   }
   main{
-    margin-top:58px;
+    margin-top:78px;
   }
   @media(max-width: 959px){
     mat-toolbar{

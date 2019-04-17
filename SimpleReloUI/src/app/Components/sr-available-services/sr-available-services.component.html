@@ -12,8 +12,8 @@
         </p>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-button (click)="openDialog()">Select</button>
-        <button mat-button class="pull-right">{{service.price}}</button>
+        <button mat-raised-button color="primary" (click)="openDialog()">Select</button>
+        <a mat-raised-button color="warn">{{service.price}}</a>
       </mat-card-actions>
     </mat-card>
    
