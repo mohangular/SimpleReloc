@@ -14,7 +14,7 @@
                 <div>
                     <a routerLink="home">Simple Relo</a>
                 </div>
-                <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
+                <div *ngIf="displayHeader" fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
                     <ul fxLayout fxLayoutGap="15px" class="navigation-items">
                         <li>
                             <a routerLink="home">Services</a>
