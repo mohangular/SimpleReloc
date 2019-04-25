@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NGXLogger } from 'ngx-logger';
 
 @Component({
   selector: "app-login",
@@ -11,7 +12,13 @@ export class LoginComponent implements OnInit {
   password: string;
   error:string;
   showSpinner = false;
-  constructor(private router: Router) {}
+  constructor(private router: Router, private logger: NGXLogger) {
+    this.logger.debug("Debug message");
+    this.logger.info("Info message");
+    this.logger.log("Default log message");
+    this.logger.warn("Warning message");
+    this.logger.error("Error message");
+  }
 
   ngOnInit() {}
 
