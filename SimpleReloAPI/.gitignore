@@ -1,0 +1,5 @@
+dist
+node_modules
+publicweb
+*.zip
+.DS_Store

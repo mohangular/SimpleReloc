@@ -1,0 +1,20 @@
+{
+  "example": {
+    "message": "Yo"
+  },
+  "mongodb": {
+    "local": false,
+    "uri-local": "mongodb://localhost:27017/cartus-benefits",
+    "uri": "mongodb://cartus-points-cosmo-dev.documents.azure.com:10255/cartus-benefits",
+    "rs_name": "globaldb",
+    "user": "cartus-points-cosmo-dev",
+    "pass":
+      "BwjCCD36N1wJmj1fNmG1CjukfxbAWooYATdV7RHe3iYHcSEPZ1NG8MhZ58Q2nYAwppbSMoUHkJ4mpuWwBaeWag==",
+    "ssl": true
+  },
+  "azure": {
+    "servicebus_connection_string":
+      "Endpoint=sb://cartus-points-bus.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=lv1jbfiq1A08yV6U07B0xBp/H5fbfWPfzBS4EBJfkas=",
+    "topic": "coview-prod"
+  }
+}
