@@ -12,6 +12,7 @@ import { SrAvailableServicesComponent } from './Components/sr-available-services
 import { SrSelectedServicesComponent } from './Components/sr-selected-services/sr-selected-services.component';
 import { LoginComponent } from './Components/login/login.component';
 import { SrServicesPopupComponent } from './Components/sr-services-popup/sr-services-popup.component';
+import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,13 @@ import { SrServicesPopupComponent } from './Components/sr-services-popup/sr-serv
     MatProgressSpinnerModule,
     MatDialogModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    LoggerModule.forRoot({
+      serverLoggingUrl: '/api/logs',
+      level: NgxLoggerLevel.TRACE,
+      serverLogLevel: NgxLoggerLevel.ERROR,
+      disableConsoleLogging: false
+    })
   ],
   providers: [],
   entryComponents: [
