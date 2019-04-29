@@ -47,6 +47,7 @@
     "azure-arm-keyvault": "^1.2.0",
     "azure-keyvault": "^3.0.0-preview",
     "cross-env": "^5.2.0",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.5.3",
     "nodemon": "^1.17.3",
     "ts-node": "^5.0.1",

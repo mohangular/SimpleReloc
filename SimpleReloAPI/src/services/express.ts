@@ -98,7 +98,7 @@ export default class Express extends Service {
 
       server.on('listening', () => {
         const addr = server.address();
-        this.logger.info(`Listening on ${addr.port}`);
+        this.logger.info(`Listening on ${port}`);
         resolve();
       });
     });

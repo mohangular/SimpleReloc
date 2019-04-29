@@ -12,6 +12,7 @@ import clientSchema from '../schemas/client';
 import Err from '../interfaces/err';
 import TimeTracker from '../models/client';
 import TimeTrackerSchema from '../schemas/client';
+var   jwt= require('jsonwebtoken');
 
 export default class ClientRoute extends Consumer {
   @inject private express: Express;
@@ -19,20 +20,58 @@ export default class ClientRoute extends Consumer {
   @inject private logger: Logger;
 
   async init() {
-    // Get all clients
-    this.express.app.get('/api/allResource', checkAuth, async (req, res, next) => {
-      const client = model('tracker', TimeTrackerSchema);
 
-
-      client.find((err, clients) => {
-        if (err) {
-         console.log("er", err);
-          next(this.handleError(err));
-        }
-      //  console.log("Data", JSON.stringify(clients));
-        res.json(clients);
+    this.express.app.get('/api/authLogin', async (req, res, next) => {
+    const user ={id:13, username:'simplerelo', roles:'admin'};
+      const token = jwt.sign({user}, process.env.JWT_SECRET ,{expiresIn:process.env.JWT_EXPIRES});
+      res.json({
+        token: token
       });
     });
+
+    function verifyToken(req, res, next){
+      const bHeader = req.headers["authorization"];
+      //console.log("bh", bHeader);
+      if(bHeader != undefined)
+      {
+        const bearer = bHeader.split(' ');
+        
+        const bearerToken = bearer[1];
+        req.body.token = bearerToken;
+        //console.log("vert", bearerToken);
+        next();
+      }
+      else{
+          res.sendStatus(403);
+      }
+    }
+    // Get all clients
+    this.express.app.get('/api/allResource', verifyToken, async (req, res, next) => {
+     // console.log(req.body.token);
+      jwt.verify(req.body.token, process.env.JWT_SECRET, (err, authData) =>{
+        if(err)
+        {
+
+          res.sendStatus(403);
+        }
+        else{
+          const client = model('tracker', TimeTrackerSchema);
+
+
+          client.find((err, clients) => {
+            if (err) {
+             console.log("er", err);
+              next(this.handleError(err));
+            }
+          //  console.log("Data", JSON.stringify(clients));
+            res.json({clients, authData});
+          });
+        }
+      });
+
+      
+    });
+
 
     // Get a specific client
     this.express.app.get('/api/ByRscName', checkAuth, async (req, res, next) => {
@@ -45,7 +84,7 @@ export default class ClientRoute extends Consumer {
       });
     });
 
-    this.express.app.delete('/api/MID', checkAuth, async (req, res, next) => {
+    this.express.app.delete('/api/MID', verifyToken, async (req, res, next) => {
       const client = model('trackers', TimeTrackerSchema);
          client.deleteOne({
           MID: req.query.mid
