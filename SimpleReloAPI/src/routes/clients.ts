@@ -13,6 +13,7 @@ import Err from '../interfaces/err';
 import TimeTracker from '../models/client';
 import TimeTrackerSchema from '../schemas/client';
 var   jwt= require('jsonwebtoken');
+var fs = require('fs');
 
 export default class ClientRoute extends Consumer {
   @inject private express: Express;
@@ -20,41 +21,28 @@ export default class ClientRoute extends Consumer {
   @inject private logger: Logger;
 
   async init() {
-
+    let signInOptions={
+      // issuer:"",
+      // subject:"",
+      // audience:"",
+      expiresIn:"120s",
+      algorithm:"RS256"
+    };
+    let _privatekey = fs.readFileSync('./authfiles/private.pem','utf8');
+    
     this.express.app.get('/api/authLogin', async (req, res, next) => {
     const user ={id:13, username:'simplerelo', roles:'admin'};
-      const token = jwt.sign({user}, process.env.JWT_SECRET ,{expiresIn:process.env.JWT_EXPIRES});
+    const token = jwt.sign(user, _privatekey,signInOptions);
       res.json({
         token: token
       });
     });
 
-    function verifyToken(req, res, next){
-      const bHeader = req.headers["authorization"];
-      //console.log("bh", bHeader);
-      if(bHeader != undefined)
-      {
-        const bearer = bHeader.split(' ');
-        
-        const bearerToken = bearer[1];
-        req.body.token = bearerToken;
-        //console.log("vert", bearerToken);
-        next();
-      }
-      else{
-          res.sendStatus(403);
-      }
-    }
+    
     // Get all clients
-    this.express.app.get('/api/allResource', verifyToken, async (req, res, next) => {
+    this.express.app.get('/api/allResource', async (req, res, next) => {
      // console.log(req.body.token);
-      jwt.verify(req.body.token, process.env.JWT_SECRET, (err, authData) =>{
-        if(err)
-        {
-
-          res.sendStatus(403);
-        }
-        else{
+     const authData = jwt.decode(req.body.token,{complete:false});
           const client = model('tracker', TimeTrackerSchema);
 
 
@@ -66,8 +54,7 @@ export default class ClientRoute extends Consumer {
           //  console.log("Data", JSON.stringify(clients));
             res.json({clients, authData});
           });
-        }
-      });
+     
 
       
     });
@@ -84,7 +71,7 @@ export default class ClientRoute extends Consumer {
       });
     });
 
-    this.express.app.delete('/api/MID', verifyToken, async (req, res, next) => {
+    this.express.app.delete('/api/MID',  async (req, res, next) => {
       const client = model('trackers', TimeTrackerSchema);
          client.deleteOne({
           MID: req.query.mid
@@ -101,41 +88,45 @@ export default class ClientRoute extends Consumer {
     });
           // Get a specific client policy
     this.express.app.get('/api/MID', checkAuth, async (req, res, next) => {
-      const client = model('trackers', TimeTrackerSchema);
       
+        const authData = jwt.decode(req.body.token,{complete:false});
+        const client = model('trackers', TimeTrackerSchema);
 
-      client.findOne(
-        {
-          MID: req.query.mid
-        },
-        (err, client: TimeTrackerModel) => {
-          if (err) next(this.handleError(err));
 
-          if (!client) {
-            return next(this.handleItemNotFound('Reousrce Name Not Found', res));
-          }
-          else{
-            res.json(client);
-          }
-          // client.Policies.map((policy, index) => {
-          //   if (policy.PolicyName === req.query.PolicyName) {
-          //     policyFound = true;
+          client.findOne(
+            {
+              MID: req.query.mid
+            },
+            (err, client: TimeTrackerModel) => {
+              if (err) next(this.handleError(err));
 
-          //     const response = {
-          //       Policy: policy,
-          //       Config: client.Config
-          //     };
+              if (!client) {
+                return next(this.handleItemNotFound('Reousrce Name Not Found', res));
+              }
+              else {
+                res.json({client, authData});
+              }
+              // client.Policies.map((policy, index) => {
+              //   if (policy.PolicyName === req.query.PolicyName) {
+              //     policyFound = true;
 
-          //     res.json(response);
-          //   }
-          // });
+              //     const response = {
+              //       Policy: policy,
+              //       Config: client.Config
+              //     };
 
-          // if (!policyFound) {
-          //   return next(this.handleItemNotFound('Client Policy Not Found', res));
-          // }
-        }
-      );
-    });
+              //     res.json(response);
+              //   }
+              // });
+
+              // if (!policyFound) {
+              //   return next(this.handleItemNotFound('Client Policy Not Found', res));
+              // }
+            }
+          );
+        
+      });
+    
 
     // Create new clients
     this.express.app.post('/api/addResource', checkAuth, async (req, res, next) => {

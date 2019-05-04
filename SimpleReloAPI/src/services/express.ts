@@ -13,7 +13,8 @@ import { setUser } from '../middleware/auth';
 import errors from '../middleware/errors';
 import Logger from './logger';
 import cookieSession = require('cookie-session');
-
+var   jwt= require('jsonwebtoken');
+var fs = require('fs');
 
 export default class Express extends Service {
   @inject
@@ -21,7 +22,7 @@ export default class Express extends Service {
 
   private _app: express.Express;
   private _server: Server;
-
+  
   get app(): express.Express {
     return this._app;
   }
@@ -83,6 +84,61 @@ export default class Express extends Service {
     this._app.use(cookieParser());
     this._app.use(setUser);
     this._app.use(express.static('./publicweb'));
+    let verifyOptions={
+      // issuer:"",
+      // subject:"",
+      // audience:"",
+      maxAge:"120s",
+      algorithm:"RS256"
+    };
+   
+    let _publickey = fs.readFileSync('./authfiles/public.pem','utf8'); 
+    this._app.use((req, res, next)=>{
+      if (req.headers &&
+        req.headers.authorization
+      ) 
+      {
+        //console.log( _publickey);
+        if(req.url.indexOf('/api/authLogin') >= 0){
+          next();
+        }
+        else
+        {
+        const bHeader = req.headers["authorization"];
+        //console.log("bh", req.url, req.url.indexOf('/api/authLogin'));
+        if (bHeader != undefined) {
+          const bearer = bHeader.split(' ');
+
+          const bearerToken = bearer[1];
+          let verified= undefined;
+          try {
+           
+          verified = jwt.verify(bearerToken, _publickey, verifyOptions);
+          req.body.token = bearerToken;
+          
+          }
+         catch (err) {
+          //     process.exit(1);
+          }
+          if (verified === undefined) {
+            //console.log("vert", verified);
+            res.sendStatus(403);
+
+          }
+          else {
+            next();
+          }
+        }
+        else {
+          res.sendStatus(403);
+        }
+      }
+      }
+      else{
+        req.body.token=undefined;
+        next();
+      }
+    });
     this._app.options('*', cors());
 
     const port = process.env.PORT ? process.env.PORT : 3000;
