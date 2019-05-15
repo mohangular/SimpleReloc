@@ -14,6 +14,11 @@ import TimeTracker from '../models/client';
 import TimeTrackerSchema from '../schemas/client';
 var   jwt= require('jsonwebtoken');
 var fs = require('fs');
+const crypto = require('crypto');
+const jsonpack = require('jsonpack');
+const json_hpack = require('json-hpack');
+const zlib = require('zlib');
+const util = require('util');
 
 export default class ClientRoute extends Consumer {
   @inject private express: Express;
@@ -25,20 +30,50 @@ export default class ClientRoute extends Consumer {
       // issuer:"",
       // subject:"",
       // audience:"",
-      expiresIn:"120s",
+      expiresIn:"1200s",
       algorithm:"RS256"
     };
     let _privatekey = fs.readFileSync('./authfiles/private.pem','utf8');
     
     this.express.app.get('/api/authLogin', async (req, res, next) => {
-    const user ={id:13, username:'simplerelo', roles:'admin'};
+    const user ={id:13, username:'simplerelo', roles:'admin', key:'mysecretkey'};
     const token = jwt.sign(user, _privatekey,signInOptions);
       res.json({
         token: token
       });
     });
 
-    
+    function myZip(input: string){
+      zlib.deflate(JSON.stringify(input), (err, buffer) => {
+        if (!err) {
+          let d = buffer.toString('hex');
+          //console.log(d);
+          const algorithm = "aes256"
+              const cipher = crypto.createCipher(algorithm, "authData.key");
+              let crypted = cipher.update(d, 'hex', 'base64');
+              crypted += cipher.final('base64');
+            //  console.log(crypted);
+
+              const decipher = crypto.createDecipher(algorithm, "authData.key");
+              let decrypted = decipher.update(crypted, 'base64', 'hex');
+              decrypted += decipher.final('hex');
+
+              console.log("decry", decrypted);
+              zlib.unzip(Buffer.from(decrypted, 'hex'), (err, buffer) => {
+                if (!err) {
+                  console.log("unfolded",JSON.parse(buffer.toString()));
+                } else {
+                  console.log("err");
+                }
+              });
+                 return decrypted;
+        } else {
+          // handle error
+        }
+
+      });
+      return "ra";
+    }
     // Get all clients
     this.express.app.get('/api/allResource', async (req, res, next) => {
      // console.log(req.body.token);
@@ -51,14 +86,79 @@ export default class ClientRoute extends Consumer {
              console.log("er", err);
               next(this.handleError(err));
             }
-          //  console.log("Data", JSON.stringify(clients));
-            res.json({clients, authData});
+           // console.log("Data", jsonpack.pack( clients));
+            const algorithm = "aes256"
+              // const cipher = crypto.createCipher(algorithm, authData.key);
+              // let crypted = cipher.update(jsonpack.pack( clients), 'utf-8', 'base64');
+              // crypted += cipher.final('base64');
+          
+              
+           
+            
+          //   const myInitZip = util.promisify(myZip);
+
+          //   let initializePromise = async ()=>{
+          //     //   myInitZip(JSON.stringify(clients))
+          //     //   .then(datas =>{
+          //     //     data = datas;
+          //     //     console.log("myzip",datas);
+          //     //   });
+
+          //     //   const datas = await myInitZip(JSON.stringify(clients));
+          //     //  data = datas;
+          //  const date=  await Promise.all([myInitZip(JSON.stringify(clients))]);
+          //     // .then(data =>{
+          //        console.log("data", date);
+          //     // });
+          //   };
+
+          //  initializePromise();
+            
+            ZipMyData(JSON.stringify(clients), authData.key, res);
+            
+            
+
+            //res.json({input, authData});
           });
      
 
       
     });
+    function UnZipMyData(indata: string, key: string) {
+      const algorithm = "aes256"
+      const decipher = crypto.createDecipher(algorithm, key);
+      let decrypted = decipher.update(indata, 'base64', 'hex');
+      decrypted += decipher.final('hex');
 
+      console.log("decry", decrypted);
+      zlib.unzip(Buffer.from(decrypted, 'hex'), (err, buffer) => {
+        if (!err) {
+          console.log("unfolded", JSON.parse(buffer.toString()));
+        } else {
+          console.log("err");
+        }
+      });
+    }
+
+    function ZipMyData(indata: string, key:string, res:any){
+      zlib.deflate(indata, (err, buffer) => {
+        if (!err) {
+          let d = buffer.toString('hex');
+          //console.log(d);
+          const algorithm = "aes256"
+              const cipher = crypto.createCipher(algorithm, key);
+              let crypted = cipher.update(d, 'hex', 'base64');
+              crypted += cipher.final('base64');
+            //  console.log(crypted);
+            res.json({crypted});
+
+        } else {
+          // handle error
+          res.json({err:"invalid data"});
+        }
+
+      });
+    }
 
     // Get a specific client
     this.express.app.get('/api/ByRscName', checkAuth, async (req, res, next) => {
@@ -104,8 +204,13 @@ export default class ClientRoute extends Consumer {
                 return next(this.handleItemNotFound('Reousrce Name Not Found', res));
               }
               else {
-                res.json({client, authData});
+                const authData = jwt.decode(req.body.token,{complete:false});
+                ZipMyData(JSON.stringify(client), authData.key, res);
+              
+             //UnZipMyData("2lzN/agmLql5P9ffhQC61qopE3lBATKq/p0uLLJ366V4WDM6dOpyFqFtCiR+Vvtal5X9G00UaHtfgu+eAbJfdq98KzLfwWShCIUac2EJ+MUiyVGbkklirUtFIUXgn6sPjvnSJflO9TsEE+njesTJUUHWdXOYKUsHwEYvDtbLiJeiaNNuXUuE4EjoR6KRHTSwUerceXdeXYXUUTJjg7PfbxJSzANoPU3AKPD76AsDeDa9t1NxIiYVNGqJt7E9OjUGRBMsuE8EF09fBPE+n5g6GB8zc2sbREWWNsDmCahWSv8=", authData.key);
               }
+
+              
               // client.Policies.map((policy, index) => {
               //   if (policy.PolicyName === req.query.PolicyName) {
               //     policyFound = true;
